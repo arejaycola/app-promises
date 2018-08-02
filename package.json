@@ -1,0 +1,22 @@
+{
+  "name": "async-await",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app-promises.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arejaycola/app-promises.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arejaycola/app-promises/issues"
+  },
+  "homepage": "https://github.com/arejaycola/app-promises#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
