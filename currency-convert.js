@@ -17,10 +17,19 @@ const axios = require('axios');
 
 //using async await
 const getExchangeRate = async (from, to) => {
-	const response = await axios.get('http://data.fixer.io/api/latest?access_key=00c6af330d6d7bd6969e1205ffb67728');
-	const euro = 1 / response.data.rates[from];
-	const rate = euro * response.data.rates[to];
-	return rate;
+	try{
+		const response = await axios.get('http://data.fixer.io/api/latest?access_key=00c6af330d6d7bd6969e1205ffb67728');
+		const euro = 1 / response.data.rates[from];
+		const rate = euro * response.data.rates[to];
+
+		if(isNaN(rate)){
+			throw new Error(`Unable to get exchange rate for ${from} and ${to}.`)
+		}
+
+		return rate;
+	}catch(e){
+		throw new Error(`Unable to get exchange rate for ${from} and ${to}.`);
+	}
 };
 
 // const getCountries = (currencyCode) => {
@@ -33,9 +42,12 @@ const getExchangeRate = async (from, to) => {
 
 
 const getCountries = async (currencyCode) => {
-	const response = await axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`)
-	
-	return response.data.map((country) => country.name);
+	try{
+		const response = await axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`)
+		return response.data.map((country) => country.name);
+	} catch(e){
+		throw new Error(`Unable to get countries that use ${currencyCode}.`)
+	}
 };
 
 // const convertCurrency = (from, to, amount) =>{
@@ -68,7 +80,15 @@ const convertCurrency = async (from, to, amount) => {
 
 convertCurrency('USD', 'CAD', 20).then((message) => {
 	console.log(message);
+}).catch((e) => {
+	console.log(e.message);
 });
+
+const doWork = async() => {
+	return 10;
+}
+
+
 
 // getExchangeRate('USD', 'CAD').then((rate) => {
 // 	console.log(rate);
